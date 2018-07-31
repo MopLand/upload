@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>File Upload Test</title>
+<style>
+*{ padding:0; margin-bottom:0; }
+form{ border:#EEE solid 1px; padding:1em; margin:1em; overflow:hidden; }
+
+#toast{ background:rgba(51, 51, 51, 0.85); color:#FFF; padding:10px; position:fixed; width:100%; box-sizing:border-box; left: 0; top: 0; z-index:100; visibility:hidden; }
+	#toast.success{ background:rgba(132, 197, 116, 0.9); visibility:visible; }
+	#toast.invalid{ background:rgba(197, 116, 116, 0.9); visibility:visible; }
+
+/* 上传组件 */
+.upload{ list-style: none; font-size:14px; margin-top:10px; overflow: hidden; }
+
+	/* 图片模式下的上传按钮 */
+	input[type=file][model=pics]{
+		float: left; position: absolute; width: 140px!important; height: 140px!important;	
+		opacity:0; margin-top:10px; box-sizing:border-box; cursor:pointer;
+	}
+
+	.upload[model=pics]:before{ 
+		content:'+'; font-size:100px; height:140px; width:140px;  box-sizing:border-box;
+		text-align:center; border:#CAC9C9 solid 1px; border-radius:3px; display: block;
+		line-height: 140px; float:left; margin-right:10px; z-index:99; color:#CCC;
+	}
+	
+	/* 多图模式 */
+	.upload[model=pics] li{ margin: 0 10px 0 0; float:left; border:#CAC9C9 solid 1px; border-radius:3px; box-sizing:border-box; width:140px; height:140px; overflow:hidden; text-align: center; background:#FFF; background-size: cover; background-position:center center; }
+		.upload[model=pics] li ins{ display:none; }
+		.upload[model=pics] li var{ display:none; }
+		.upload[model=pics] li a{ display:block; width:100%; height:100%; }
+		.upload[model=pics] li img{ height:100%; display:block; }
+		.upload[model=pics] li del{
+			background:#F55D5D; border:#FFF solid 1px;  color:#FFF; position: absolute; width: 20px; height: 20px; text-align: center; border-radius: 50%; margin: -12px; 
+			font-family:Helvetica, sans-serif; font-style:normal; line-height: 20px; display:none; font-size: 20px; cursor:pointer; text-decoration: none;
+		}
+		.upload[model=pics] li:hover del{ display:block; }
+	
+	/* 单图模式 */
+	.upload[model=pics][multi='1'] li{ width: auto; }
+		.upload[model=pics][multi='1'] li img{}
+
+	/* 列表模式 */
+	.upload[model=list] li{ padding:10px; border-top:#EEE solid 1px; overflow: hidden; line-height: 18px; }
+		.upload[model=list] li ins{ float:left;  }
+		.upload[model=list] li var{ background:#BBB; color:#FFF; padding:2px 5px; font-size:10px; float: left; margin-right:15px; font-family: "Lucida Console", Monaco, monospace; display:block!important; line-height: 12px; }
+		.upload[model=list] li del{ float:right; cursor:pointer; color:#999; font-size:20px; font-family: "Lucida Console", Monaco, monospace; text-decoration: none; }
+		.upload[model=list] li del:hover{ color:red; }
+
+	/* 数量上限 */
+	input[type=file][limit=full]{ display:none;	}
+	
+	.upload[model=pics][limit=full]:before{ display:none; }
+</style>
+</head>
+
+<body>
+
+<form>
+	<input type="file" name="key" value="" config='{ "multi" : 5 }' accept="image/*" />
+</form>
+
+<form>
+	<input type="file" name="thumb" value="" config='{ "model" : "pics", "multi" : 5 }' accept="image/gif,image/jpeg,image/jpg,image/png" />
+</form>
+
+<script type="text/javascript" charset="utf-8" src="http://notes.veryide.com/r.js/lib/ray.js"></script>
+<script type="text/javascript" charset="utf-8" src="pack.upload.js?ver=3.0"></script>
+
+<script type="text/javascript">	
+	Upload.init( '[type=file]', { 
+		'upload': 'upload.php?execute=upload', 
+		'delete': 'upload.php?execute=delete', 
+		'class' : 'upload', 
+		'formdata' : { 
+			'k' : 'v' 
+		} 
+	}, {
+	
+		//出错时回调
+		error : function( name, code, msg ){
+			R.toast( 'invalid', msg, {'time': 3, 'unique': 'toast'});
+		},
+
+		//通过时回调
+		valid : function( name, file, size, image ){
+			R.toast( 'success', '文件上传完成', {'time': 1, 'unique': 'toast'});
+		}
+	
+	});
+</script>
+
+</body>
+</html>
