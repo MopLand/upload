@@ -1,16 +1,10 @@
 /*!
-*	(C)2018 VeryIDE
-*	http://www.veryide.com/
-*	Upload 多文件上传组件
-*	$Id: pack.upload.js 2018/05/25 Lay $
-*/
-
-/**
  * @name Upload
  * @class 文件上传组件，支持多文件，多视图显示
- * @author Lay
- * @version 1.8
+ * @date: 2018/08/02
  * @see http://www.veryide.com/projects/upload/
+ * @author Lay
+ * @copyright VeryIDE
  * @constructor
  */
 
