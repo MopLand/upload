@@ -22,7 +22,7 @@
 #### 内置以下参数
 
 	# 显示模式
-	model			pics | list
+	model			list | pics
 
 	# 指定上传域名名称，否则将使用随机名称
 	alias			[string]
@@ -124,6 +124,9 @@
 
 	<input type="file" name="thumb" value="" config='{ "alias" : "avatar" }' accept="image/*" />
 
+## 已知问题
+
+1. 不支持跨域文件上传
 
 ## DOC 生成
 
