@@ -1,7 +1,7 @@
 /*!
  * @name Upload
  * @class 文件上传组件，支持多文件，多视图显示
- * @date: 2018/08/02
+ * @date: 2018/08/29
  * @see http://www.veryide.com/projects/upload/
  * @author Lay
  * @copyright VeryIDE
@@ -222,14 +222,20 @@ var Upload = {
 		/*
 		Config:
 
+		//指定上传域名名称，否则将使用随机名称
+		alias			字符串
+
 		//文件是否存放远程服务器
 		remote			(true|false)
 
 		//是否始终返回绝对地址
 		absolute		(true|false)
 
+		//限制原图最大尺寸，超出时将缩放
+		range			宽度*高度
+
 		//裁切尺寸（切图）
-		crop			宽度*高度
+		slice			宽度*高度
 
 		//自动缩略图，尺寸
 		thumb			宽度*高度
@@ -254,6 +260,11 @@ var Upload = {
 
 		//随机命名
 		var idx = 'file' + Math.random().toString(16).substring(2);
+
+		//使用别名
+		if( config.alias ){
+			idx = config.alias;
+		}
 
 		//默认配置
 		if( config ){
