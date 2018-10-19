@@ -1,7 +1,7 @@
 /*!
  * @name Upload
  * @class 文件上传组件，支持多文件，多视图显示
- * @date: 2018/08/29
+ * @date: 2018/10/18
  * @see http://www.veryide.com/projects/upload/
  * @author Lay
  * @copyright VeryIDE
@@ -571,8 +571,9 @@ var Upload = {
 		try{
 			
 			var result = JSON.parse( result );
+			var status = typeof result['status'] != 'undefined' ? result['status'] : result['return'];
 			
-			if( result['return'] >= 0 ){
+			if( status >= 0 ){
 
 				Upload.attach( idx, result['file'] );
 	
@@ -582,7 +583,7 @@ var Upload = {
 			}else{
 	
 				//错误回调
-				Upload.events.error( name, result['return'], Upload.status[ result['return'] + '' ] );
+				Upload.events.error( name, status, Upload.status[ status + '' ] );
 	
 			}
 		
